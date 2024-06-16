@@ -1,0 +1,38 @@
+-- Step 1: Create tables
+CREATE TABLE CUSTOMER (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR2(50) NOT NULL,
+    Address VARCHAR2(100),
+    City VARCHAR2(50),
+    Country VARCHAR2(50)
+);
+
+CREATE TABLE ORDERS (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATE,
+    FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID)
+);
+
+CREATE TABLE PRODUCT (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR2(50) NOT NULL,
+    SupplierID INT,
+    FOREIGN KEY (SupplierID) REFERENCES SUPPLIER(SupplierID)
+);
+
+CREATE TABLE ORDER_ITEMS (
+    OrderID INT,
+    ProductID INT,
+    Quantity INT,
+    CONSTRAINT PK_ORDER_ITEMS PRIMARY KEY (OrderID, ProductID),
+    FOREIGN KEY (OrderID) REFERENCES ORDERS(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES PRODUCT(ProductID)
+);
+
+CREATE TABLE SUPPLIER (
+    SupplierID INT PRIMARY KEY,
+    SupplierName VARCHAR2(50) NOT NULL,
+    ContactName VARCHAR2(50),
+    Country VARCHAR2(50)
+);
